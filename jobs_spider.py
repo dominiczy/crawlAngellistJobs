@@ -12,12 +12,9 @@ class JobsSpider(scrapy.Spider):
     
     start_urls = ['https://angel.co/login']
     job_listings_url = 'https://angel.co/job_listings/startup_ids'
-    dict_name = 'Shanghai'
+    dict_name = 'Hongkong'
     dict_size = 40
-    #location_filter = 'tab=find&filter_data%5Blocations%5D%5B%5D=2539-Shenzhen%2C+Guangdong'
-    location_filter = 'tab=find&filter_data%5Blocations%5D%5B%5D=2029-Shanghai%2C+CN'
-    #location_filter = 'tab=find&filter_data%5Blocations%5D%5B%5D=1644-Hong+Kong'
-    #location_filter = 'tab=find&filter_data%5Blocations%5D%5B%5D=1628-China'
+    location_filter = 'tab=find&filter_data%5Blocations%5D%5B%5D=1644-Hong+Kong'
     browse_startup_url = 'https://angel.co/job_listings/browse_startups_table?'
     apply_url = "https://angel.co/talent_api/startups/"
     companyDict = {}
@@ -26,13 +23,7 @@ class JobsSpider(scrapy.Spider):
         print('---------TEST STUFF--------\n')
         respHtm = urllib.request.urlopen("file:job table test.html").read()
                 
-        
-        
-        
-        # apply links
-        """https://angel.co/talent_api/startups/209035/job_application_details?
-        matched_job_listings[]=239590&matched_job_listings[]=239595&matched_job_listings[]=239597"""
-    
+       
     # Login to Angellist
     def parse(self, response):
         token = response.css('input[name=authenticity_token]::attr(value)').extract_first()
@@ -41,8 +32,8 @@ class JobsSpider(scrapy.Spider):
                     formdata={'utf8':'%E2%9C%93', 
                               'authenticity_token':token,
                               'login_only':'true',
-                              'user[email]': 'jandevries071@gmail.com', 
-                              'user[password': 'jandevries'
+                              'user[email]': 'USEREMAIL', 
+                              'user[password': 'PASSWORD'
                               },
                     callback=self.after_login)]
 
@@ -186,8 +177,7 @@ class JobsSpider(scrapy.Spider):
         
         with open(self.dict_name+'_companyDict.json', 'w') as fp:
             json.dump(self.companyDict, fp)
-        
-    ########################## ########################## ########################## ##########################
+
 
     
    
